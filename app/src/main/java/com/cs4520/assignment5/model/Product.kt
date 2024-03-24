@@ -16,7 +16,7 @@ data class Product (
 )
 
 fun Product.toProducts(): Products {
-    return Products(this.name,this.type,this.expiryDate, this.price)
+    return Products(this.name.substringBefore('_'),this.type,this.expiryDate, this.price)
 }
 
 fun Product.isValidProduct(): Boolean {
