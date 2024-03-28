@@ -56,6 +56,10 @@ class ProductListViewModel(app: Application): AndroidViewModel(app) {
         }
     }
 
+    fun fetchProductsFromWorker() {
+        return
+    }
+
     fun getProductList(): LiveData<List<Product>> {
         return productList
 
