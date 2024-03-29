@@ -46,14 +46,13 @@ class ProductListViewModel(app: Application): AndroidViewModel(app) {
     fun fetchProducts() {
 
 
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
 
                 productRepo.scheduleWork()
 
-               val products = withContext(Dispatchers.IO) {
-                    productRepo.getAllProducts()
-                }
+               val products = productRepo.getAllProducts()
+
 
                 productList.value = products
 

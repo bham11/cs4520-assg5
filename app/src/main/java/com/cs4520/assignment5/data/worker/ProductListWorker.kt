@@ -15,15 +15,8 @@ class ProductListWorker(context: Context, params: WorkerParameters, val productR
     CoroutineWorker(context, params) {
     override suspend fun doWork(): Result {
         return try {
-            val products = productRepo.getAllProducts()
-            val productListString = products.joinToString(separator = "|") { product ->
-                "${product.name},${product.type},${product.expiryDate ?: ""},${product.price}"
-            }
-
-
-            val output = Data.Builder().putString("productList", productListString
-            ).build()
-            Result.success(output)
+            productRepo.getAllProducts()
+            Result.success()
         } catch (e: Throwable) {
             Log.e("ProductListWorker", e.message!!)
             Result.failure()

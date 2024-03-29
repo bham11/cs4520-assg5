@@ -5,6 +5,7 @@ package com.cs4520.assignment5.data
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.work.Constraints
+import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkInfo
@@ -34,17 +35,9 @@ class ProductRepository(val productDao: ProductsDao, val workManager: WorkManage
             .setConstraints(constraints)
             .build()
 
-        workManager.enqueue(workRequest)
-
-        workManager.getWorkInfoByIdLiveData(workRequest.id)
-            .observeForever {
-                    info ->
-                if(info != null && info.state == WorkInfo.State.SUCCEEDED) {
-                    val data = info.outputData
-                    val result = data.getString("productList")
-                    // what do i do??
-                }
-            }
+        workManager.enqueueUniquePeriodicWork("dataFetchWork",
+            ExistingPeriodicWorkPolicy.UPDATE,
+            workRequest)
 
     }
 
