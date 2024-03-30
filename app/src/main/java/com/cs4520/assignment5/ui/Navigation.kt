@@ -2,10 +2,7 @@ package com.cs4520.assignment5.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.Navigation
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.cs4520.assignment5.ui.login.LoginForm
@@ -30,7 +27,7 @@ fun AppNavHost(
         }
 
         composable(NavigationItem.ProductList.route) {
-            ProductListScreen(productListViewModel, navController)
+            ProductListScreen(productListViewModel)
         }
     }
 }

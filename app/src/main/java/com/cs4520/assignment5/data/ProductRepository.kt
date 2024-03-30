@@ -3,12 +3,10 @@ package com.cs4520.assignment5.data
 
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.cs4520.assignment5.data.database.Products
 import com.cs4520.assignment5.data.database.ProductsDao
@@ -94,28 +92,6 @@ class ProductRepository(val productDao: ProductsDao, val workManager: WorkManage
 
         return dbList.map{ it.toProduct() }
     }
-
-    private fun processDataString(result: String?): List<Product> {
-        val products = mutableListOf<Product>()
-        val productStrings = result?.split("|")
-        if (productStrings != null) {
-            for (productString in productStrings) {
-                val productFields = productString.split(",")
-                if (productFields.size == 4) {
-                    val product = Product(
-                        name = productFields[0],
-                        type = productFields[1],
-                        expiryDate = if (productFields[2].isNotEmpty()) productFields[2] else null,
-                        price = productFields[3].toDouble()
-                    )
-                    products.add(product)
-                }
-            }
-        }
-        return products
-
-    }
-
 
 
 }
